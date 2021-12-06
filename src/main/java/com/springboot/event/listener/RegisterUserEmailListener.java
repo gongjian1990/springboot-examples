@@ -8,21 +8,26 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName: AnnotationRegisterListener
+ * @ClassName: RegisterUserEmailListener
  * @Description:
  * @Author: 龚剑
- * @Date: 2021/12/6 16:14
+ * @Date: 2021/12/6 18:19
  **/
 @Component
 @Slf4j
 @Async
-public class AnnotationRegisterListener {
+public class RegisterUserEmailListener {
 
     @EventListener
-    public void registerListener(UserRegisterEvent event){
+    public void sendEmail(UserRegisterEvent event){
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         UserBean userBean = event.getUserBean();
-
-        log.info("系统进行注册：注册信息：name: {}, password: {}",userBean.getName(),userBean.getPassword());
-
+        log.info("发送邮件： ==================，to: {}",userBean.getName());
     }
 }
